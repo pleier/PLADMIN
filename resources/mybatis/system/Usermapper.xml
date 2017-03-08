@@ -76,7 +76,7 @@
     </sql>
 
     <!-- 判断用户名和密码 -->
-    <select id="getUserInfo" parameterType="pd" resultType="pd">
+    <select id="getUserInfo" parameterType="pageData" resultType="pageData">
         select <include refid="Field"></include> from
         <include refid="tableName"></include>
         where 1=1
@@ -89,7 +89,7 @@
     </select>
 
     <!-- 更新登录时间 -->
-    <update id="updateLastLogin" parameterType="pd" >
+    <update id="updateLastLogin" parameterType="pageData" >
         update
         <include refid="tableName"></include>
         set
@@ -118,7 +118,7 @@
     </select>
 
     <!-- 通过USERNAME获取数据 -->
-    <select id="findByUsername" parameterType="pd" resultType="pd" >
+    <select id="findByUsername" parameterType="pageData" resultType="pageData" >
         select
         <include refid="Field"></include>
         from
@@ -128,7 +128,7 @@
     </select>
 
     <!-- 存入IP -->
-    <update id="saveIP" parameterType="pd" >
+    <update id="saveIP" parameterType="pageData" >
         update
         <include refid="tableName"></include>
         set
@@ -138,7 +138,7 @@
     </update>
 
     <!-- 列出某角色下的所有用户 -->
-    <select id="listAllUserByRoldId"  parameterType="pd" resultType="pd" >
+    <select id="listAllUserByRoldId"  parameterType="pageData" resultType="pageData" >
         select "USER_ID"
         from
         <include refid="tableName"></include>
@@ -147,7 +147,7 @@
     </select>
 
     <!-- 用户列表 -->
-    <select id="userlistPage" parameterType="page" resultType="pd" >
+    <select id="userlistPage" parameterType="page" resultType="pageData" >
         select  u."USER_ID",
         u."USERNAME",
         u."PASSWORD",
@@ -190,7 +190,7 @@
     </select>
 
     <!-- 通过邮箱获取数据 -->
-    <select id="findByUE" parameterType="pd" resultType="pd" >
+    <select id="findByUE" parameterType="pageData" resultType="pageData" >
         select
         <include refid="Field"></include>
         from
@@ -203,7 +203,7 @@
     </select>
 
     <!-- 通过编号获取数据 -->
-    <select id="findByUN" parameterType="pd" resultType="pd" >
+    <select id="findByUN" parameterType="pageData" resultType="pageData" >
         select
         <include refid="Field"></include>
         from
@@ -216,7 +216,7 @@
     </select>
 
     <!-- 通过user_id获取数据 -->
-    <select id="findById" parameterType="pd" resultType="pd" >
+    <select id="findById" parameterType="pageData" resultType="pageData" >
         select
         <include refid="Field"></include>
         from
@@ -226,7 +226,7 @@
     </select>
 
     <!-- 新增用户 -->
-    <insert id="saveU" parameterType="pd" >
+    <insert id="saveU" parameterType="pageData" >
         insert into <include refid="tableName"></include> (
         <include refid="Field"></include>
         ) values (
@@ -235,7 +235,7 @@
     </insert>
 
     <!-- 修改 -->
-    <update id="editU" parameterType="pd" >
+    <update id="editU" parameterType="pageData" >
         update  <include refid="tableName"></include>
         set	"NAME" 					= #{NAME},
         "ROLE_ID" 				= #{ROLE_ID},
@@ -251,7 +251,7 @@
     </update>
 
     <!-- 删除用户 -->
-    <delete id="deleteU" parameterType="pd" flushCache="false">
+    <delete id="deleteU" parameterType="pageData" flushCache="false">
         delete from <include refid="tableName"></include>
         where
         "USER_ID" = #{USER_ID}
@@ -272,7 +272,7 @@
     </delete>
 
     <!-- 用户列表(全部) -->
-    <select id="listAllUser" parameterType="pd" resultType="pd" >
+    <select id="listAllUser" parameterType="pageData" resultType="pageData" >
         select  u."USER_ID",
         u."USERNAME",
         u."PASSWORD",
@@ -315,7 +315,7 @@
     </select>
 
     <!-- 获取总数 -->
-    <select id="getUserCount" parameterType="String" resultType="pd">
+    <select id="getUserCount" parameterType="String" resultType="pageData">
         select
         count("USER_ID") "userCount"
         from

@@ -61,7 +61,7 @@
     </select>
 
     <!--通过菜单ID获取数据 -->
-    <select id="getMenuById" parameterType="pd" resultType="pd">
+    <select id="getMenuById" parameterType="pageData" resultType="pageData">
         select
         <include refid="Field"></include>
         from
@@ -81,7 +81,7 @@
     </insert>
 
     <!--取最大ID-->
-    <select id="findMaxId" parameterType="pd" resultType="pd">
+    <select id="findMaxId" parameterType="pageData" resultType="pageData">
         select "MAX"("MENU_ID") "MID" from
         <include refid="tableName"></include>
     </select>

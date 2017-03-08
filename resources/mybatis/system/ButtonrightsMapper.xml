@@ -31,7 +31,7 @@
     </sql>
 
     <!-- 新增-->
-    <insert id="save" parameterType="pd">
+    <insert id="save" parameterType="pageData">
         insert into
         <include refid="tableName"></include>
         (
@@ -42,7 +42,7 @@
     </insert>
 
     <!-- 通过(角色ID和按钮ID)获取数据 -->
-    <select id="findById" parameterType="pd" resultType="pd">
+    <select id="findById" parameterType="pageData" resultType="pageData">
         select
         <include refid="Field"></include>
         from
@@ -54,7 +54,7 @@
     </select>
 
     <!-- 删除-->
-    <delete id="delete" parameterType="pd">
+    <delete id="delete" parameterType="pageData">
         delete from
         <include refid="tableName"></include>
         where
@@ -64,7 +64,7 @@
     </delete>
 
     <!-- 列表(全部) -->
-    <select id="listAll" parameterType="pd" resultType="pd">
+    <select id="listAll" parameterType="pageData" resultType="pageData">
         select
         <include refid="Field"></include>
         from
@@ -72,7 +72,7 @@
     </select>
 
     <!-- 列表(全部)左连接按钮表,查出安全权限标识-->
-    <select id="listAllBrAndQxname" parameterType="pd" resultType="pd">
+    <select id="listAllBrAndQxname" parameterType="pageData" resultType="pageData">
         select
         <include refid="buttonField"></include>
         from
