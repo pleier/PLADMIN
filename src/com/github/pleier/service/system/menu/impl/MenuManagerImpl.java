@@ -1,0 +1,128 @@
+package com.github.pleier.service.system.menu.impl;
+
+import com.github.pleier.dao.BaseDao;
+import com.github.pleier.entity.system.Menu;
+import com.github.pleier.service.system.menu.MenuManager;
+import com.github.pleier.util.PageData;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * Created by pleiyang@outlook.com on 2017/3/5.
+ */
+@Repository("menuService")
+public class MenuManagerImpl implements MenuManager{
+
+    @Resource(name="daoSupport")
+    private BaseDao dao;
+
+    /**
+     * 通过ID获取其子一级菜单
+     * @param parentId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Menu> listSubMenuByParentId(String parentId) throws Exception {
+        return(List<Menu>)dao.findForList("MenuMapper.listSubMenuByParentId", parentId);
+    }
+
+    /**
+     * 通过菜单ID获取数据
+     * @param pd
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public PageData getMenuById(PageData pd) throws Exception {
+        return (PageData)dao.findForObject("MenuMapper.getMenuById", pd);
+    }
+
+    /**
+     * 新增菜单
+     * @param menu
+     * @throws Exception
+     */
+    @Override
+    public void saveMenu(Menu menu) throws Exception {
+        dao.save("MenuMapper.insertMenu", menu);
+    }
+
+    /**
+     * 取最大ID
+     * @param pd
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public PageData findMaxId(PageData pd) throws Exception {
+        return (PageData) dao.findForObject("MenuMapper.findMaxId", pd);
+    }
+
+    /**
+     * 删除菜单
+     * @param MENU_ID
+     * @throws Exception
+     */
+    @Override
+    public void deleteMenuById(String MENU_ID) throws Exception {
+        dao.delete("MenuMapper.deleteMenuById", MENU_ID);
+    }
+
+    /**
+     * 编辑
+     * @param menu
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public void edit(Menu menu) throws Exception {
+        dao.update("MenuMapper.updateMenu", menu);
+    }
+
+    /**
+     * 保存菜单图标
+     * @param pd
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public PageData editIcon(PageData pd) throws Exception {
+        return (PageData)dao.update("MenuMapper.editIcon", pd);
+    }
+
+    /**
+     * 获取所有菜单并填充每个菜单的子菜单列表(菜单管理)(递归处理)
+     * @param MENU_ID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Menu> listAllMenu(String MENU_ID) throws Exception {
+        List<Menu> menuList = this.listSubMenuByParentId(MENU_ID);
+        for(Menu menu : menuList){
+            menu.setMENU_URL("menu/toEdit.do?MENU_ID="+menu.getMENU_ID());
+            menu.setSubMenu(this.listAllMenu(menu.getMENU_ID()));
+            menu.setTarget("treeFrame");
+        }
+        return menuList;
+    }
+
+    /**
+     * 获取所有菜单并填充每个菜单的子菜单列表(系统菜单列表)(递归处理)
+     * @param MENU_ID
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Menu> listAllMenuQx(String MENU_ID) throws Exception {
+        List<Menu> menuList = this.listSubMenuByParentId(MENU_ID);
+        for(Menu menu : menuList){
+            menu.setSubMenu(this.listAllMenuQx(menu.getMENU_ID()));
+            menu.setTarget("treeFrame");
+        }
+        return menuList;
+    }
+}

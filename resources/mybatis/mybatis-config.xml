@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings> 
+        <setting name="cacheEnabled" value="true" /><!-- 全局映射器启用缓存 -->   
+        <setting name="useGeneratedKeys" value="true" /> 
+        <setting name="defaultExecutorType" value="REUSE" /> 
+    </settings>
+
+	<typeAliases>
+		<typeAlias type="com.github.pleier.util.PageData" alias="pageData"/>
+		<!-- 分页 -->
+		<typeAlias type="com.github.pleier.entity.Page" alias="page"/>
+		<!-- 批量别名定义,默认别名为类名首字母大小写都可以 -->
+		<package name="com.github.pleier.entity.system"/>
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.github.pleier.plugin.PagePlugin">
+			<property name="dialect" value="mysql"/>
+			<property name="pageSqlId" value=".*listPage.*"/>
+		</plugin>
+	</plugins>
+	
+</configuration>
