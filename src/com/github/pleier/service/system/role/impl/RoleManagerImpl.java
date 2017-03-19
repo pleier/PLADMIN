@@ -4,7 +4,7 @@ import com.github.pleier.dao.BaseDao;
 import com.github.pleier.entity.system.Role;
 import com.github.pleier.service.system.role.RoleManager;
 import com.github.pleier.util.PageData;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * Created by pleiyang@outlook.com on 2017/3/7.
  */
-@Repository("roleService")
+@Service("roleService")
 public class RoleManagerImpl implements RoleManager {
     @Resource(name="daoSupport")
     private BaseDao dao;

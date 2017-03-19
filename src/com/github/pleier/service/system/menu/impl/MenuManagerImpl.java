@@ -4,7 +4,7 @@ import com.github.pleier.dao.BaseDao;
 import com.github.pleier.entity.system.Menu;
 import com.github.pleier.service.system.menu.MenuManager;
 import com.github.pleier.util.PageData;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by pleiyang@outlook.com on 2017/3/5.
  */
-@Repository("menuService")
+@Service("menuService")
 public class MenuManagerImpl implements MenuManager{
 
     @Resource(name="daoSupport")

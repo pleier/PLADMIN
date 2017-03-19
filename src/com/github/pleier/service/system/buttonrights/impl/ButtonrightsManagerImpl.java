@@ -3,7 +3,7 @@ package com.github.pleier.service.system.buttonrights.impl;
 import com.github.pleier.dao.BaseDao;
 import com.github.pleier.service.system.buttonrights.ButtonrightsManager;
 import com.github.pleier.util.PageData;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by pleiyang@outlook.com on 2017/3/7.
  */
-@Repository("buttonrightsService")
+@Service("buttonrightsService")
 public class ButtonrightsManagerImpl implements ButtonrightsManager {
     @Resource(name="daoSupport")
     private BaseDao dao;
