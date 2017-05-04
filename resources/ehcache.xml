@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">  
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
      
-    <diskStore path="java.io.tmpdir" /> <!-- 缓存存放目录(此目录为放入系统默认缓存目录),也可以是”D:/cache“ java.io.tmpdir -->
+    <diskStore path="e:/cache/java.io.tmpdir" /> <!-- 缓存存放目录(此目录为放入系统默认缓存目录),也可以是”e:/cache/java.io.tmpdir -->
     <defaultCache  
             maxElementsInMemory="10000"  
             eternal="false"  

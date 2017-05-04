@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by PLEI on 2/10/2017.
  */
-public class BaseController {
+public class BaseController{
+    protected Logger logger = Logger.getLogger(this.getClass());
+
     /** new PageData对象
      * @return
      */

@@ -25,19 +25,19 @@
 
     <!--表名-->
     <sql id="tableName">
-        "SYS_MENU"
+        SYS_MENU
     </sql>
 
     <!--字段-->
     <sql id="Field">
-        "MENU_ID",
- 		"MENU_NAME",
- 		"MENU_URL",
- 		"PARENT_ID",
- 		"MENU_ICON",
- 		"MENU_ORDER",
- 		"MENU_STATE",
- 		"MENU_TYPE"
+        MENU_ID,
+ 		MENU_NAME,
+ 		MENU_URL,
+ 		PARENT_ID,
+ 		MENU_ICON,
+ 		MENU_ORDER,
+ 		MENU_STATE,
+ 		MENU_TYPE
     </sql>
 
     <!-- 字段值 -->
@@ -57,7 +57,7 @@
         <include refid="Field"></include>
         from
         <include refid="tableName"></include>
-        where "PARENT_ID" = #{parentId} order by "MENU_ORDER"
+        where PARENT_ID = #{parentId} order by MENU_ORDER
     </select>
 
     <!--通过菜单ID获取数据 -->
@@ -66,7 +66,7 @@
         <include refid="Field"></include>
         from
         <include refid="tableName"></include>
-        where "MENU_ID"=#{MENU_ID}
+        where MENU_ID=#{MENU_ID}
     </select>
 
     <!--新增 -->
@@ -82,7 +82,7 @@
 
     <!--取最大ID-->
     <select id="findMaxId" parameterType="pageData" resultType="pageData">
-        select "MAX"("MENU_ID") "MID" from
+        select MAX(MENU_ID) MID from
         <include refid="tableName"></include>
     </select>
 
@@ -90,7 +90,7 @@
     <delete id="deleteMenuById" parameterType="String">
         delete from
         <include refid="tableName"></include>
-        where "MENU_ID"=#{MENU_ID}
+        where MENU_ID=#{MENU_ID}
     </delete>
 
     <!--编辑 -->
@@ -98,13 +98,13 @@
         update
         <include refid="tableName"></include>
         set
-        "MENU_NAME" =#{MENU_NAME},
-        "MENU_URL"  =#{MENU_URL} ,
-        "MENU_ORDER"=#{MENU_ORDER},
-        "MENU_STATE"=#{MENU_STATE},
-        "MENU_TYPE" =#{MENU_TYPE}
+        MENU_NAME =#{MENU_NAME},
+        MENU_URL  =#{MENU_URL} ,
+        MENU_ORDER=#{MENU_ORDER},
+        MENU_STATE=#{MENU_STATE},
+        MENU_TYPE =#{MENU_TYPE}
         where
-        "MENU_ID"=#{MENU_ID}
+        MENU_ID=#{MENU_ID}
     </update>
 
     <!--保存菜单图标  -->
@@ -112,9 +112,9 @@
         update
         <include refid="tableName"></include>
         set
-        "MENU_ICON"=#{MENU_ICON}
+        MENU_ICON=#{MENU_ICON}
         where
-        "MENU_ID"=#{MENU_ID}
+        MENU_ID=#{MENU_ID}
     </update>
 
 </mapper>
