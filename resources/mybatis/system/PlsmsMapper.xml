@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="PlsmsMapper">
+    <!--表名-->
+    <sql id="tableName">
+      SYS_PLSMS
+    </sql>
+
+    <!--字段-->
+    <sql id="field">
+        "CONTENT",
+        "TYPE",
+        "TO_USERNAME",
+        "FROM_USERNAME",
+        "SEND_TIME",
+        "STATUS",
+        "SANME_ID"
+    </sql>
+
+    <!--字段值-->
+    <sql id="fieldValue">
+        #{CONTENT},
+        #{TYPE},
+        #{TO_USERNAME},
+        #{FROM_USERNAME},
+        #{SEND_TIME},
+        #{STATUS},
+        #{SANME_ID}
+    </sql>
+
+    <!--新增-->
+    <insert id="save" parameterType="pageData">
+        INSERT INTO
+        <include refid="tableName"/>
+        (
+        <include refid="field"/>
+        )
+        VALUES
+        (
+        <include refid="fieldValue"/>
+        )
+    </insert>
+
+    <!--删除-->
+    <delete id="delete" parameterType="pageData">
+        DELETE FROM
+        <include refid="tableName"/>
+        WHEN
+        "PLSMS_ID" = #{PLSMS_ID}
+    </delete>
+
+    <!--修改状态-->
+    <update id="edit" parameterType="pageData">
+        UPDATE
+        <include refid="tableName"/>
+        SET "STATUS" = '1'
+        WHERE
+        "PLSMS_ID" = #{PLSMS_ID}
+    </update>
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="pageData" resultType="pageData">
+        select
+        <include refid="field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        "PLSMS_ID" = #{PLSMS_ID}
+    </select>
+
+    <!-- 列表 -->
+    <select id="datalistPage" parameterType="page" resultType="pageData">
+        select
+        <include refid="field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        "FROM_USERNAME" = #{pageData.FROM_USERNAME}
+        and
+        "TYPE" = #{pageData.TYPE}
+        <if test="pageData.keywords!= null and pageData.keywords != ''"><!-- 关键词检索 -->
+            and
+            (
+            "FROM_USERNAME" LIKE CONCAT(CONCAT('%', #{pageData.keywords}),'%')
+            or
+            "TO_USERNAME" LIKE CONCAT(CONCAT('%', #{pageData.keywords}),'%')
+            or
+            "CONTENT" LIKE CONCAT(CONCAT('%', #{pageData.keywords}),'%')
+            )
+        </if>
+        <if test="pageData.lastLoginStart!=null and pageData.lastLoginStart!=''"><!-- 开始时间检索 -->
+            and "SEND_TIME" &gt;= #{pageData.lastLoginStart}
+        </if>
+        <if test="pageData.lastLoginEnd!=null and pageData.lastLoginEnd!=''"><!-- 结束时间检索 -->
+            and "SEND_TIME" &lt;= #{pd.lastLoginEnd}
+        </if>
+        <if test="pageData.STATUS != null and pageData.STATUS != ''"><!-- 状态检索 -->
+            and "STATUS" = #{pageData.STATUS}
+        </if>
+        order by "STATUS" desc
+    </select>
+
+    <!-- 列表(全部) -->
+    <select id="listAll" parameterType="pageData" resultType="pageData">
+        select
+        <include refid="field"></include>
+        from
+        <include refid="tableName"></include>
+    </select>
+
+    <!-- 获取未读总数 -->
+    <select id="findPlsmsCount" parameterType="String" resultType="pageData">
+        select
+        count("PLSMS_ID") "plsmsCount"
+        from
+        <include refid="tableName"></include>
+        where
+        "STATUS" = '2'
+        and
+        "TYPE" = '1'
+        and
+        "FROM_USERNAME" = #{USERNAME}
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from
+        <include refid="tableName"></include>
+        where
+        "PLSMS_ID" in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

@@ -26,7 +26,7 @@ public class Jurisdiction {
          */
         String USERNAME = getUsername();	//获取当前登录者loginname
         Session session = getSession();
-        List<Menu> menuList = (List<Menu>)session.getAttribute(USERNAME + Const.SESSION_allmenuList); //获取菜单列表
+        List<Menu> menuList = (List<Menu>)session.getAttribute(USERNAME + Const.SESSION_ALLMENULIST); //获取菜单列表
         return readMenu(menuList,menuUrl,session,USERNAME);
     }
 
@@ -81,7 +81,7 @@ public class Jurisdiction {
          */
         String USERNAME = getUsername();	//获取当前登录者loginname
         Session session = getSession();
-        List<Menu> menuList = (List<Menu>)session.getAttribute(USERNAME + Const.SESSION_allmenuList); //获取菜单列表
+        List<Menu> menuList = (List<Menu>)session.getAttribute(USERNAME + Const.SESSION_ALLMENULIST); //获取菜单列表
         return readMenuButton(menuList,menuUrl,session,USERNAME,type);
     }
 

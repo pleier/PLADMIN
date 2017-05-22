@@ -138,7 +138,7 @@ function editUserH(){
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
 	 diag.Title ="个人资料";
-	 diag.URL = locat+'/user/goEditMyU.do';
+	 //diag.URL = locat+'/user/goEditMyU.do';
 	 diag.Width = 469;
 	 diag.Height = 469;
 	 diag.CancelEvent = function(){ //关闭事件
@@ -163,12 +163,13 @@ function editSys(){
 }
 
 //站内信
-function fhsms(){
-	 jzts();
+function plsms(){
+	 //jzts();
+	alert(window.location);
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
 	 diag.Title ="站内信";
-	 diag.URL = locat+'/fhsms/list.do?STATUS=2';
+	 diag.URL = locat+'/plsms/list.do?STATUS=2';
 	 diag.Width = 800;
 	 diag.Height = 500;
 	 diag.CancelEvent = function(){ //关闭事件

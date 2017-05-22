@@ -31,9 +31,9 @@ function toUserMsg(toU){
 			input = Ext.create('Ext.form.field.HtmlEditor', {
 						region : 'south',
 						height : 120,
-						enableFont : false,
-						enableSourceEdit : false,
-						enableAlignments : false,
+						enableFont : false,//是否启用选择字体按钮，默认为true
+						enableSourceEdit : false,//是否启用源代码编辑按钮，默认为true
+						enableAlignments : false,//是否启用左中右对齐按钮，默认为true
 						listeners : {
 							initialize : function() {
 								Ext.EventManager.on(me.input.getDoc(), {
@@ -216,7 +216,7 @@ Ext.define('MessageContainer', {
 	},
 
 	tpl : [
-			'<div class="l-im-message-warn">​欢迎使用FH Admin 即时通讯系统。</div>',
+			'<div class="l-im-message-warn">​欢迎使用PL Admin 即时通讯系统。</div>',
 			'<tpl for=".">',
 			'<div class="l-im-message">',
 			'<div class="l-im-message-header l-im-message-header-{source}">{from}  {timestamp}</div>',
