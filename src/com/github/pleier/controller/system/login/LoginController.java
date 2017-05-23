@@ -286,7 +286,7 @@ public class LoginController extends BaseController{
         session.removeAttribute(USERNAME + Const.SESSION_ALLMENULIST);
         session.removeAttribute(USERNAME + Const.SESSION_MENULIST);
         session.removeAttribute(USERNAME + Const.SESSION_QX);
-        session.removeAttribute(Const.SESSION_userpds);
+        session.removeAttribute(Const.SESSION_USERPDS);
         session.removeAttribute(Const.SESSION_USERNAME);
         session.removeAttribute(Const.SESSION_USERROL);
         session.removeAttribute("changeMenu");

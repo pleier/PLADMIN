@@ -9,14 +9,14 @@
 
     <!-- 字段 -->
     <sql id="Field">
-        "ROLE_ID",
-        "ROLE_NAME",
-        "RIGHTS",
-        "PARENT_ID",
-        "ADD_QX",
-        "DEL_QX",
-        "EDIT_QX",
-        "CHA_QX"
+        ROLE_ID,
+        ROLE_NAME,
+        RIGHTS,
+        PARENT_ID,
+        ADD_QX,
+        DEL_QX,
+        EDIT_QX,
+        CHA_QX
     </sql>
 
     <!-- 字段值 -->
@@ -33,7 +33,7 @@
 
     <!--表名 -->
     <sql id="tableName">
-        "SYS_ROLE"
+        SYS_ROLE
     </sql>
 
     <!-- 列出此组下的角色 -->
@@ -43,8 +43,8 @@
         from
         <include refid="tableName"></include>
         where
-        "PARENT_ID" = #{ROLE_ID}
-        ORDER BY "ROLE_ID"
+        PARENT_ID = #{ROLE_ID}
+        ORDER BY ROLE_ID
     </select>
 
     <!-- 通过id查找 -->
@@ -53,7 +53,7 @@
         <include refid="Field"></include>
         from
         <include refid="tableName"></include>
-        where "ROLE_ID" = #{ROLE_ID}
+        where ROLE_ID = #{ROLE_ID}
     </select>
 
     <!-- 添加 -->
@@ -71,69 +71,69 @@
     <update id="edit" parameterType="pageData">
         update
         <include refid="tableName"></include>
-        set "ROLE_NAME" = #{ROLE_NAME}
-        where "ROLE_ID" = #{ROLE_ID}
+        set ROLE_NAME = #{ROLE_NAME}
+        where ROLE_ID = #{ROLE_ID}
     </update>
 
     <!-- 删除角色  -->
     <delete id="deleteRoleById" parameterType="String">
         delete from
         <include refid="tableName"></include>
-        where "ROLE_ID"=#{ROLE_ID}
+        where ROLE_ID=#{ROLE_ID}
     </delete>
 
     <!-- 给当前角色附加菜单权限  -->
     <update id="updateRoleRights" parameterType="Role">
         update
         <include refid="tableName"></include>
-        set "RIGHTS"=#{RIGHTS}
-        where "ROLE_ID"=#{ROLE_ID}
+        set RIGHTS=#{RIGHTS}
+        where ROLE_ID=#{ROLE_ID}
     </update>
 
     <!-- 通过id查找 -->
     <select id="getRoleById" parameterType="String" resultMap="roleResultMap">
         select * from
         <include refid="tableName"></include>
-        where "ROLE_ID"=#{ROLE_ID}
+        where ROLE_ID=#{ROLE_ID}
     </select>
 
     <!-- 给全部子角色加菜单权限 -->
     <update id="setAllRights" parameterType="pageData">
         update
         <include refid="tableName"></include>
-        set "RIGHTS"=#{rights}
-        where "PARENT_ID"=#{ROLE_ID}
+        set RIGHTS=#{rights}
+        where PARENT_ID=#{ROLE_ID}
     </update>
 
     <!-- 新增权限 -->
     <update id="add_qx" parameterType="pageData">
         update
         <include refid="tableName"></include>
-        set "ADD_QX"=#{value}
-        where "ROLE_ID"=#{ROLE_ID}
+        set ADD_QX=#{value}
+        where ROLE_ID=#{ROLE_ID}
     </update>
 
     <!-- 删除权限 -->
     <update id="del_qx" parameterType="pageData">
         update
         <include refid="tableName"></include>
-        set "DEL_QX"=#{value}
-        where "ROLE_ID"=#{ROLE_ID}
+        set DEL_QX=#{value}
+        where ROLE_ID=#{ROLE_ID}
     </update>
 
     <!-- 修改权限 -->
     <update id="edit_qx" parameterType="pageData">
         update
         <include refid="tableName"></include>
-        set "EDIT_QX"=#{value}
-        where "ROLE_ID"=#{ROLE_ID}
+        set EDIT_QX=#{value}
+        where ROLE_ID=#{ROLE_ID}
     </update>
 
     <!-- 查看权限 -->
     <update id="cha_qx" parameterType="pageData">
         update
         <include refid="tableName"></include>
-        set "CHA_QX"=#{value}
-        where "ROLE_ID"=#{ROLE_ID}
+        set CHA_QX=#{value}
+        where ROLE_ID=#{ROLE_ID}
     </update>
 </mapper>

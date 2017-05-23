@@ -40,7 +40,6 @@ public class PagePlugin implements Interceptor {
     private static String pageSqlId = ""; //mapper.xml中需要拦截的ID(正则匹配)
 
     public Object intercept(Invocation ivk) throws Throwable {
-        // TODO Auto-generated method stub
         if(ivk.getTarget() instanceof RoutingStatementHandler){
             RoutingStatementHandler statementHandler = (RoutingStatementHandler)ivk.getTarget();
             BaseStatementHandler delegate = (BaseStatementHandler) ReflectHelper.getValueByFieldName(statementHandler, "delegate");
@@ -168,7 +167,6 @@ public class PagePlugin implements Interceptor {
     }
 
     public Object plugin(Object arg0) {
-        // TODO Auto-generated method stub
         return Plugin.wrap(arg0, this);
     }
 
@@ -178,7 +176,6 @@ public class PagePlugin implements Interceptor {
             try {
                 throw new PropertyException("dialect property is not found!");
             } catch (PropertyException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -187,7 +184,6 @@ public class PagePlugin implements Interceptor {
             try {
                 throw new PropertyException("pageSqlId property is not found!");
             } catch (PropertyException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }

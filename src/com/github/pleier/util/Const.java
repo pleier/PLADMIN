@@ -14,7 +14,7 @@ public class Const {
     public static final String SESSION_MENULIST = "menuList";			//当前菜单
     public static final String SESSION_ALLMENULIST = "allmenuList";		//全部菜单
     public static final String SESSION_QX = "QX";
-    public static final String SESSION_userpds = "userpds";
+    public static final String SESSION_USERPDS = "userpds";
     public static final String SESSION_USERROL = "USERROL";				//用户对象
     public static final String SESSION_USERNAME = "USERNAME";			//用户名
     public static final String TRUE = "T";
