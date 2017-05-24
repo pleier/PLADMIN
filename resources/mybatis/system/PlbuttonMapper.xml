@@ -3,15 +3,15 @@
 <mapper namespace="PlbuttonMapper">
     <!--表名 -->
     <sql id="tableName">
-        "SYS_PLBUTTON"
+        SYS_PLBUTTON
     </sql>
 
     <!-- 字段 -->
     <sql id="Field">
-        "NAME",
-        "QX_NAME",
-        "BZ",
-        "PLBUTTON_ID"
+        NAME,
+        QX_NAME,
+        BZ,
+        PLBUTTON_ID
     </sql>
 
     <!-- 字段值 -->
@@ -38,7 +38,7 @@
         delete from
         <include refid="tableName"></include>
         where
-        "PLBUTTON_ID" = #{PLBUTTON_ID}
+        PLBUTTON_ID = #{PLBUTTON_ID}
     </delete>
 
     <!-- 修改 -->
@@ -46,12 +46,12 @@
         update
         <include refid="tableName"></include>
         set
-        "NAME" = #{NAME},
-        "QX_NAME" = #{QX_NAME},
-        "BZ" = #{BZ},
-        "PLBUTTON_ID" = "PLBUTTON_ID"
+        NAME = #{NAME},
+        QX_NAME = #{QX_NAME},
+        BZ = #{BZ},
+        PLBUTTON_ID = PLBUTTON_ID
         where
-        "PLBUTTON_ID" = #{PLBUTTON_ID}
+        PLBUTTON_ID = #{PLBUTTON_ID}
     </update>
 
     <!-- 通过ID获取数据 -->
@@ -61,7 +61,7 @@
         from
         <include refid="tableName"></include>
         where
-        "PLBUTTON_ID" = #{PLBUTTON_ID}
+        PLBUTTON_ID = #{PLBUTTON_ID}
     </select>
 
     <!-- 列表 -->
@@ -74,9 +74,9 @@
         <if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
             and
             (
-            "NAME" LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
             or
-            "QX_NAME" LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            QX_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
             )
 
         </if>
@@ -95,7 +95,7 @@
         delete from
         <include refid="tableName"></include>
         where
-        "PLBUTTON_ID" in
+        PLBUTTON_ID in
         <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
             #{item}
         </foreach>

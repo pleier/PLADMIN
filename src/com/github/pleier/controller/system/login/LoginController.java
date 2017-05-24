@@ -250,10 +250,10 @@ public class LoginController extends BaseController{
             pd.put(Const.SESSION_USERNAME, USERNAME);
             pd.put("ROLE_ID", userService.findByUsername(pd).get("ROLE_ID").toString());//获取角色ID
             pd = roleService.findObjectById(pd);										//获取角色信息
-            map.put("adds", pd.getString("ADD_QX"));	//增
-            map.put("dels", pd.getString("DEL_QX"));	//删
-            map.put("edits", pd.getString("EDIT_QX"));	//改
-            map.put("chas", pd.getString("CHA_QX"));    //查
+            map.put("add", pd.getString("ADD_QX"));	//增
+            map.put("del", pd.getString("DEL_QX"));	//删
+            map.put("edit", pd.getString("EDIT_QX"));	//改
+            map.put("cha", pd.getString("CHA_QX"));    //查
             List<PageData> buttonQXnamelist = new ArrayList<PageData>();
             if("admin".equals(USERNAME)){
                 buttonQXnamelist = plbuttonService.listAll(pd);					//admin用户拥有所有按钮权限

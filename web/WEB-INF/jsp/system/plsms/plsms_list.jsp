@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="fhsms/list.do" method="post" name="Form" id="Form">
+						<form action="plsms/list.do" method="post" name="Form" id="Form">
 						<input type="hidden" name="TYPE" value="${pd.TYPE}" />
 						<table style="margin-top:5px;">
 							<tr>
@@ -55,8 +55,8 @@
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
-								<td style="padding-left:20px;"><a href="fhsms/list.do?TYPE=1"><span class="label label-<c:if test="${pd.TYPE != '2' }">success</c:if> arrowed-right arrowed-in">收信箱</span></a></td>
-								<td><a href="fhsms/list.do?TYPE=2"><span class="label label-<c:if test="${pd.TYPE == '2' }">info</c:if> arrowed-right arrowed-in">发信箱</span></a></td>
+								<td style="padding-left:20px;"><a href="plsms/list.do?TYPE=1"><span class="label label-<c:if test="${pd.TYPE != '2' }">success</c:if> arrowed-right arrowed-in">收信箱</span></a></td>
+								<td><a href="plsms/list.do?TYPE=2"><span class="label label-<c:if test="${pd.TYPE == '2' }">info</c:if> arrowed-right arrowed-in">发信箱</span></a></td>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -84,7 +84,7 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' id="${var.TO_USERNAME}" value="${var.FHSMS_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' id="${var.TO_USERNAME}" value="${var.PLSMS_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<c:if test="${pd.TYPE != '2' }">
@@ -96,7 +96,9 @@
 											<td class='center'><a onclick="viewUser('${var.TO_USERNAME}')" style="cursor:pointer;">${var.TO_USERNAME}</a></td>
 											</c:if>
 											<td class='center'>${var.SEND_TIME}</td>
-											<td class='center' id="STATUS${vs.index+1}"><c:if test="${var.STATUS == '2' }"><span class="label label-important arrowed-in">未读</span></c:if><c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">已读</span></c:if></td>
+											<td class='center' id="STATUS${vs.index+1}">
+												<c:if test="${var.STATUS == '2' }"><span class="label label-important arrowed-in">未读</span></c:if>
+												<c:if test="${var.STATUS == '1' }"><span class="label label-success arrowed">已读</span></c:if></td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -105,7 +107,7 @@
 													<a class="btn btn-xs btn-success" title="查看" onclick="viewx('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.FHSMS_ID}','${var.SANME_ID}');">
 														<i class="ace-icon fa fa-search nav-search-icon"></i>
 													</a>
-													<c:if test="${QX.FHSMS == 1 }">
+													<c:if test="${QX.PLSMS == 1 }">
 													<a class="btn btn-xs btn-info" title='发送站内信' onclick="sendFhsms('${var.TO_USERNAME}');">
 														<i class="ace-icon fa fa-envelope-o bigger-120" title="发送站内信"></i>
 													</a>
@@ -271,12 +273,12 @@
 		});
 		
 		//发站内信
-		function sendFhsms(username){
+		function sendPlsms(username){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="站内信";
-			 diag.URL = '<%=basePath%>fhsms/goAdd.do?username='+username;
+			 diag.URL = '<%=basePath%>plsms/goAdd.do?username='+username;
 			 diag.Width = 660;
 			 diag.Height = 444;
 			 diag.CancelEvent = function(){ //关闭事件

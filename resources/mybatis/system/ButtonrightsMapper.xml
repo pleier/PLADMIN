@@ -3,19 +3,19 @@
 <mapper namespace="ButtonrightsMapper">
     <!--关联表名 -->
     <sql id="tableName">
-        "SYS_ROLE_PLBUTTON"
+        SYS_ROLE_PLBUTTON
     </sql>
 
     <!--按钮表名 -->
     <sql id="buttontableName">
-        "SYS_PLBUTTON"
+        SYS_PLBUTTON
     </sql>
 
     <!-- 字段 -->
     <sql id="Field">
-        "RB_ID",
-        "ROLE_ID",
-        "BUTTON_ID"
+        RB_ID,
+        ROLE_ID,
+        BUTTON_ID
     </sql>
 
     <!-- 字段值 -->
@@ -27,7 +27,7 @@
 
     <!-- 按钮表字段 -->
     <sql id="buttonField">
-        "QX_NAME"
+        QX_NAME
     </sql>
 
     <!-- 新增-->
@@ -48,9 +48,9 @@
         from
         <include refid="tableName"></include>
         where
-        "ROLE_ID" = #{ROLE_ID}
+        ROLE_ID = #{ROLE_ID}
         and
-        "BUTTON_ID" = #{BUTTON_ID}
+        BUTTON_ID = #{BUTTON_ID}
     </select>
 
     <!-- 删除-->
@@ -58,9 +58,9 @@
         delete from
         <include refid="tableName"></include>
         where
-        "ROLE_ID" = #{ROLE_ID}
+        ROLE_ID = #{ROLE_ID}
         and
-        "BUTTON_ID" = #{BUTTON_ID}
+        BUTTON_ID = #{BUTTON_ID}
     </delete>
 
     <!-- 列表(全部) -->
@@ -80,8 +80,8 @@
         left join
         <include refid="buttontableName"></include> b
         on
-        a."BUTTON_ID" = b."PLBUTTON_ID"
+        a.BUTTON_ID = b.PLBUTTON_ID
         where
-        a."ROLE_ID" = #{ROLE_ID}
+        a.ROLE_ID = #{ROLE_ID}
     </select>
 </mapper>
