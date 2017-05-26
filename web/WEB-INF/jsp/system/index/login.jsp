@@ -33,27 +33,25 @@
 <body>
 <div class="bg">
     <div id="login">
-        <form class="form-signin">
+        <form action="#" class="form-signin">
             <h2 class="form-signin-heading">Please sign in</h2>
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Email address" autofocus>
             <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <div class="checkbox">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+          <%--  <div class="checkbox">
                 <label>
-                    <input type="checkbox" id="saveId" value="remember-me" onclick="savePaw();"> 记住密码
+                    <input name="form-field-checkbox" type="checkbox" id="saveId" > 记住密码
                 </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" id="to_login">登  陆</button>
+            </div>--%>
+            <button class="btn btn-lg btn-primary btn-block" type="button" onclick="serverCheck();">登  陆</button>
         </form>
+
 </div>
 </div>
 </body>
 <script type="text/javascript">
-    $(function(){
-        var login = $("#to_login");
-        login.click(serverCheck);
-    });
+    //$("#saveId").click(savePaw);
     //客户端校验
     function check(){
         //验证用户名
@@ -108,7 +106,7 @@
                 success: function(data){
                 
                     if("success" == data.result){
-                        saveCookie();
+                       // saveCookie();
                         window.location.href="main/index";
                     }else if("usererror" == data.result){
                         $("#inputEmail").tips({
@@ -134,8 +132,10 @@
     }
 
     //如果记住密码未勾选则清空cookie中的帐号和密码信息，已勾选则不做任何操作
-    function savePaw() {
+    /*function savePaw() {
+        alert($("#saveId").attr('checked'));
         if (!$("#saveId").attr("checked")) {
+            alert("清楚session");
             $.cookie('inputEmail', '', {
                 expires : -1   //cookie的有效期单位为天，如果不设置则浏览器关闭就失效
                 //path:'/'      cookie值保存的路径，默认与创建页路径一致。
@@ -146,10 +146,12 @@
             $("#inputEmail").val('');
             $("#inputPassword").val('');
         }
-    }
+    }*/
 
     //将用户名和密码保存到cookie中，有效期为七天
-    function saveCookie() {
+    /*function saveCookie() {
+        alert($("#saveId").attr("checked"));
+        alert("保存session");
         if ($("#saveId").attr("checked")) {
             $.cookie('inputEmail', $("#inputEmail").val(), {
                 expires : 7
@@ -158,13 +160,13 @@
                 expires : 7
             });
         }
-    }
+    }*/
 
     //从cookie中获取帐号密码
-    jQuery(function() {
+   /* jQuery(function() {
         var inputEmail = $.cookie('inputEmail');
         var password = $.cookie('inputPassword');
-
+        alert(inputEmail+"-"+password);
         if (typeof(inputEmail) != "undefined"
             && typeof(password) != "undefined") {
             alert(inputEmail+"--"+password);
@@ -173,6 +175,6 @@
             $("#saveId").attr("checked", true);
             //$("#code").focus();
         }
-    });
+    });*/
 </script>
 </html>
