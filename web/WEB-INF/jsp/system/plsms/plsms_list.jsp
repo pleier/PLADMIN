@@ -126,13 +126,13 @@
 			
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<li>
-																<a style="cursor:pointer;" onclick="viewx('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.FHSMS_ID}','${var.SANME_ID}');" class="tooltip-success" data-rel="tooltip" title="查看">
+																<a style="cursor:pointer;" onclick="viewx('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.PLSMS_ID}','${var.SANME_ID}');" class="tooltip-success" data-rel="tooltip" title="查看">
 																	<span class="green">
 																		<i class="ace-icon fa fa-search nav-search-icon"></i>
 																	</span>
 																</a>
 															</li>
-															<c:if test="${QX.FHSMS == 1 }">
+															<c:if test="${QX.PLSMS == 1 }">
 															<li>
 																<a style="cursor:pointer;" onclick="sendFhsms('${var.TO_USERNAME}');" class="tooltip-info" data-rel="tooltip" title="发送站内信">
 																	<span class="blue">
@@ -143,7 +143,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.FHSMS_ID}','${var.SANME_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('STATUS${vs.index+1}','${var.STATUS}','${pd.TYPE == '2'?'2':'1' }','${var.PLSMS_ID}','${var.SANME_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>

@@ -165,7 +165,6 @@ function editSys(){
 //站内信
 function plsms(){
 	 //jzts();
-	alert(window.location);
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
 	 diag.Title ="站内信";

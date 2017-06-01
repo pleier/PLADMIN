@@ -92,7 +92,7 @@
             and SEND_TIME &gt;= #{pageData.lastLoginStart}
         </if>
         <if test="pageData.lastLoginEnd!=null and pageData.lastLoginEnd!=''"><!-- 结束时间检索 -->
-            and SEND_TIME &lt;= #{pd.lastLoginEnd}
+            and SEND_TIME &lt;= #{pageData.lastLoginEnd}
         </if>
         <if test="pageData.STATUS != null and pageData.STATUS != ''"><!-- 状态检索 -->
             and STATUS = #{pageData.STATUS}
