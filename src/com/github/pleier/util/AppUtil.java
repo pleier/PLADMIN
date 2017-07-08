@@ -71,11 +71,11 @@ public class AppUtil {
         return pd;
     }
 
-    /**设置list中的distance
+   /* *//**设置list中的distance
      * @param list
      * @param pd
      * @return
-     */
+     *//*
     public static List<PageData> setListDistance(List<PageData> list, PageData pd){
         List<PageData> listReturn = new ArrayList<PageData>();
         String user_longitude = "";
@@ -102,7 +102,7 @@ public class AppUtil {
             listReturn.add(pdTemp);
         }
         return listReturn;
-    }
+    }*/
 
     /**
      * @param pd
