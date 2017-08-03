@@ -85,7 +85,8 @@ public class Jurisdiction {
         return readMenuButton(menuList,menuUrl,session,USERNAME,type);
     }
 
-    /**校验按钮权限(递归处理)
+    /**
+     * 校验按钮权限(递归处理)
      * @param menuList:传入的总菜单(设置菜单时，.do前面的不要重复)
      * @param menuUrl:访问地址
      * @return
@@ -113,7 +114,7 @@ public class Jurisdiction {
             }else{
                 if(!readMenuButton(menuList.get(i).getSubMenu(),menuUrl,session,USERNAME,type)){//继续排查其子菜单
                     return false;
-                };
+                }
             }
         }
         return true;

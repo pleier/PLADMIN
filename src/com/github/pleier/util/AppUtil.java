@@ -105,13 +105,14 @@ public class AppUtil {
     }*/
 
     /**
+     * 回调
      * @param pd
      * @param map
      * @return
      */
     public static Object returnObject(PageData pd, Map map){
         if(pd.containsKey("callback")){
-            String callback = pd.get("callback").toString();
+            String callback = pd.get("callback").toString();   //回调的方法名
             return new JSONPObject(callback, map);
         }else{
             return map;
