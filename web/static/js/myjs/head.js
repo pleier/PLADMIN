@@ -138,7 +138,7 @@ function editUserH(){
 	 var diag = new top.Dialog();
 	 diag.Drag=true;
 	 diag.Title ="个人资料";
-	 //diag.URL = locat+'/user/goEditMyU.do';
+	 diag.URL = locat+'/user/goEditMyU.do';
 	 diag.Width = 469;
 	 diag.Height = 469;
 	 diag.CancelEvent = function(){ //关闭事件
