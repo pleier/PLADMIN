@@ -20,10 +20,10 @@ function save3(){
 }
 
 //设置站内信声音提示类型
-function setFHsmsSoundType(type){
-	$("#FHsmsSound").val(type);
+function setPLsmsSoundType(type){
+	$("#PLsmsSound").val(type);
 	if('0' != type){
-		$("#fhsmsobjsys").html('<audio style="display: none;" id="fhsmstsy" src="static/sound/'+type+'.mp3" autoplay controls></audio>');
+		$("#plsmsobjsys").html('<audio style="display: none;" id="fhsmstsy" src="static/sound/'+type+'.mp3" autoplay controls></audio>');
 	}
 }
 

@@ -11,7 +11,7 @@ public interface BaseDao {
      * @return
      * @throws Exception
      */
-    public Object save(String str, Object obj) throws Exception;
+    Object save(String str, Object obj) throws Exception;
 
     /**
      * 修改对象
@@ -20,7 +20,7 @@ public interface BaseDao {
      * @return
      * @throws Exception
      */
-    public Object update(String str, Object obj) throws Exception;
+    Object update(String str, Object obj) throws Exception;
 
     /**
      * 删除对象
@@ -29,7 +29,7 @@ public interface BaseDao {
      * @return
      * @throws Exception
      */
-    public Object delete(String str, Object obj) throws Exception;
+    Object delete(String str, Object obj) throws Exception;
 
     /**
      * 查找对象
@@ -38,7 +38,7 @@ public interface BaseDao {
      * @return
      * @throws Exception
      */
-    public Object findForObject(String str, Object obj) throws Exception;
+    Object findForObject(String str, Object obj) throws Exception;
 
     /**
      * 查找对象
@@ -47,14 +47,14 @@ public interface BaseDao {
      * @return
      * @throws Exception
      */
-    public Object findForList(String str, Object obj) throws Exception;
+    Object findForList(String str, Object obj) throws Exception;
 
     /**
      * 查找对象封装成Map
-     * @param s
+     * @param sql
      * @param obj
      * @return
      * @throws Exception
      */
-    public Object findForMap(String sql, Object obj, String key , String value) throws Exception;
+    Object findForMap(String sql, Object obj, String key , String value) throws Exception;
 }
