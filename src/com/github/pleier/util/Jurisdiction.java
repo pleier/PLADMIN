@@ -120,7 +120,8 @@ public class Jurisdiction {
         return true;
     }
 
-    /**获取当前登录的用户名
+    /**
+     * 获取当前登录的用户名
      * @return
      */
     public static String getUsername(){

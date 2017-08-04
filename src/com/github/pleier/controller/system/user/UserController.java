@@ -136,7 +136,8 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**判断用户名是否存在
+	/**
+	 * 判断用户名是否存在
 	 * @return
 	 */
 	@RequestMapping(value="/hasU")
@@ -144,7 +145,7 @@ public class UserController extends BaseController {
 	public Object hasU(){
 		Map<String,String> map = new HashMap<String,String>();
 		String errInfo = "success";
-		PageData pd = new PageData();
+		PageData pd ;
 		try{
 			pd = this.getPageData();
 			if(userService.findByUsername(pd) != null){
@@ -165,7 +166,7 @@ public class UserController extends BaseController {
 	public Object hasE(){
 		Map<String,String> map = new HashMap<String,String>();
 		String errInfo = "success";
-		PageData pd = new PageData();
+		PageData pd ;
 		try{
 			pd = this.getPageData();
 			if(userService.findByUE(pd) != null){
@@ -178,7 +179,8 @@ public class UserController extends BaseController {
 		return AppUtil.returnObject(new PageData(), map);
 	}
 
-	/**判断编码是否存在
+	/**
+	 * 判断编码是否存在
 	 * @return
 	 */
 	@RequestMapping(value="/hasN")
@@ -186,7 +188,7 @@ public class UserController extends BaseController {
 	public Object hasN(){
 		Map<String,String> map = new HashMap<String,String>();
 		String errInfo = "success";
-		PageData pd = new PageData();
+		PageData pd ;
 		try{
 			pd = this.getPageData();
 			if(userService.findByUN(pd) != null){
@@ -207,8 +209,7 @@ public class UserController extends BaseController {
 	public ModelAndView goEditU() throws Exception{
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
+		PageData  pd = this.getPageData();
 		if("1".equals(pd.getString("USER_ID"))){return null;}		//不能修改admin用户
 		pd.put("ROLE_ID", "1");
 		List<Role> roleList = roleService.listAllRolesByPId(pd);	//列出所有系统用户角色
@@ -289,8 +290,7 @@ public class UserController extends BaseController {
 	public ModelAndView editU() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"修改ser");
 		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
+		PageData pd =  this.getPageData();
 		if(!Jurisdiction.getUsername().equals(pd.getString("USERNAME"))){		//如果当前登录用户修改用户资料提交的用户名非本人
 			if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}  //校验权限 判断当前操作者有无用户管理查看权限
 			if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限判断当前操作者有无用户管理修改权限
