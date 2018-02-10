@@ -1,10 +1,13 @@
 package com.github.pleier.entity.system;
 
+import java.io.Serializable;
+
 /**
  * 角色类
  * Created by pleiyang@outlook.com on 2017/3/4.
  */
-public class Role {
+public class Role implements Serializable {
+    private static final long serialVersionUID = 3406338095843144769L;
     private String ROLE_ID;
     private String ROLE_NAME;
     private String RIGHTS;

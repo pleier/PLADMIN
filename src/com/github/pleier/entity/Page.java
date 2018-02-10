@@ -4,22 +4,24 @@ import com.github.pleier.util.Const;
 import com.github.pleier.util.PageData;
 import com.github.pleier.util.Tools;
 
+import java.io.Serializable;
+
 /**
  * Created by PLEI on 2/9/2017.
  */
-public class Page {
+public class Page implements Serializable {
+    private static final long serialVersionUID = 2442049831409682813L;
     private int showCount; //每页显示记录数
-    private int totalPage;		//总页数
-    private int totalResult;	//总记录数
-    private int currentPage;	//当前页
-    private int currentResult;	//当前记录起始索引
-    private boolean entityOrField;	//true:需要分页的地方，传入的参数就是Page实体；false:需要分页的地方，传入的参数所代表的实体拥有Page属性
-    private String pageStr;		//最终页面显示的底部翻页导航，详细见：getPageStr();
+    private int totalPage;        //总页数
+    private int totalResult;    //总记录数
+    private int currentPage;    //当前页
+    private int currentResult;    //当前记录起始索引
+    private boolean entityOrField;    //true:需要分页的地方，传入的参数就是Page实体；false:需要分页的地方，传入的参数所代表的实体拥有Page属性
+    private String pageStr;        //最终页面显示的底部翻页导航，详细见：getPageStr();
     private PageData pageData = new PageData();
 
 
-
-    public Page(){
+    public Page() {
         try {
             this.showCount = Integer.parseInt(Tools.readTxtFile(Const.PAGE));
         } catch (Exception e) {
@@ -28,10 +30,10 @@ public class Page {
     }
 
     public int getTotalPage() {
-        if(totalResult%showCount==0)
-            totalPage = totalResult/showCount;
+        if (totalResult % showCount == 0)
+            totalPage = totalResult / showCount;
         else
-            totalPage = totalResult/showCount+1;
+            totalPage = totalResult / showCount + 1;
         return totalPage;
     }
 
@@ -48,9 +50,9 @@ public class Page {
     }
 
     public int getCurrentPage() {
-        if(currentPage<=0)
+        if (currentPage <= 0)
             currentPage = 1;
-        if(currentPage>getTotalPage())
+        if (currentPage > getTotalPage())
             currentPage = getTotalPage();
         return currentPage;
     }
@@ -62,43 +64,43 @@ public class Page {
     //拼接分页 页面及JS函数
     public String getPageStr() {
         StringBuffer sb = new StringBuffer();
-        if(totalResult>0){
+        if (totalResult > 0) {
             sb.append("	<ul class=\"pagination pull-right no-margin\">\n");
-            if(currentPage==1){
-                sb.append("	<li><a>共<font color=red>"+totalResult+"</font>条</a></li>\n");
+            if (currentPage == 1) {
+                sb.append("	<li><a>共<font color=red>" + totalResult + "</font>条</a></li>\n");
                 sb.append("	<li><input type=\"number\" value=\"\" id=\"toGoPage\" style=\"width:50px;text-align:center;float:left\" placeholder=\"页码\"/></li>\n");
                 sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"toTZ();\"  class=\"btn btn-mini btn-success\">跳转</a></li>\n");
                 sb.append("	<li><a>首页</a></li>\n");
                 sb.append("	<li><a>上页</a></li>\n");
-            }else{
-                sb.append("	<li><a>共<font color=red>"+totalResult+"</font>条</a></li>\n");
+            } else {
+                sb.append("	<li><a>共<font color=red>" + totalResult + "</font>条</a></li>\n");
                 sb.append("	<li><input type=\"number\" value=\"\" id=\"toGoPage\" style=\"width:50px;text-align:center;float:left\" placeholder=\"页码\"/></li>\n");
                 sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"toTZ();\"  class=\"btn btn-mini btn-success\">跳转</a></li>\n");
                 sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage(1)\">首页</a></li>\n");
-                sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage("+(currentPage-1)+")\">上页</a></li>\n");
+                sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage(" + (currentPage - 1) + ")\">上页</a></li>\n");
             }
             int showTag = 5;//分页标签显示数量
             int startTag = 1;
-            if(currentPage>showTag){
-                startTag = currentPage-1;
+            if (currentPage > showTag) {
+                startTag = currentPage - 1;
             }
-            int endTag = startTag+showTag-1;
-            for(int i=startTag; i<=totalPage && i<=endTag; i++){
-                if(currentPage==i)
-                    sb.append("<li class=\"active\"><a><font color='white'>"+i+"</font></a></li>\n");
+            int endTag = startTag + showTag - 1;
+            for (int i = startTag; i <= totalPage && i <= endTag; i++) {
+                if (currentPage == i)
+                    sb.append("<li class=\"active\"><a><font color='white'>" + i + "</font></a></li>\n");
                 else
-                    sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage("+i+")\">"+i+"</a></li>\n");
+                    sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage(" + i + ")\">" + i + "</a></li>\n");
             }
-            if(currentPage==totalPage){
+            if (currentPage == totalPage) {
                 sb.append("	<li><a>下页</a></li>\n");
                 sb.append("	<li><a>尾页</a></li>\n");
-            }else{
-                sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage("+(currentPage+1)+")\">下页</a></li>\n");
-                sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage("+totalPage+")\">尾页</a></li>\n");
+            } else {
+                sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage(" + (currentPage + 1) + ")\">下页</a></li>\n");
+                sb.append("	<li style=\"cursor:pointer;\"><a onclick=\"nextPage(" + totalPage + ")\">尾页</a></li>\n");
             }
-            sb.append("	<li><a>共"+totalPage+"页</a></li>\n");
+            sb.append("	<li><a>共" + totalPage + "页</a></li>\n");
             sb.append("	<li><select title='显示条数' style=\"width:55px;float:left;margin-top:1px;\" onchange=\"changeCount(this.value)\">\n");
-            sb.append("	<option value='"+showCount+"'>"+showCount+"</option>\n");
+            sb.append("	<option value='" + showCount + "'>" + showCount + "</option>\n");
             sb.append("	<option value='10'>10</option>\n");
             sb.append("	<option value='20'>20</option>\n");
             sb.append("	<option value='30'>30</option>\n");
@@ -120,9 +122,9 @@ public class Page {
             sb.append(" top.jzts();");
             sb.append("	if(true && document.forms[0]){\n");
             sb.append("		var url = document.forms[0].getAttribute(\"action\");\n");
-            sb.append("		if(url.indexOf('?')>-1){url += \"&"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
-            sb.append("		else{url += \"?"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
-            sb.append("		url = url + page + \"&" +(entityOrField?"showCount":"page.showCount")+"="+showCount+"\";\n");
+            sb.append("		if(url.indexOf('?')>-1){url += \"&" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";}\n");
+            sb.append("		else{url += \"?" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";}\n");
+            sb.append("		url = url + page + \"&" + (entityOrField ? "showCount" : "page.showCount") + "=" + showCount + "\";\n");
             sb.append("		document.forms[0].action = url;\n");
             sb.append("		document.forms[0].submit();\n");
             sb.append("	}else{\n");
@@ -132,10 +134,10 @@ public class Page {
             sb.append("				var reg = /currentPage=\\d*/g;\n");
             sb.append("				url = url.replace(reg,'currentPage=');\n");
             sb.append("			}else{\n");
-            sb.append("				url += \"&"+(entityOrField?"currentPage":"page.currentPage")+"=\";\n");
+            sb.append("				url += \"&" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";\n");
             sb.append("			}\n");
-            sb.append("		}else{url += \"?"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
-            sb.append("		url = url + page + \"&" +(entityOrField?"showCount":"page.showCount")+"="+showCount+"\";\n");
+            sb.append("		}else{url += \"?" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";}\n");
+            sb.append("		url = url + page + \"&" + (entityOrField ? "showCount" : "page.showCount") + "=" + showCount + "\";\n");
             sb.append("		document.location = url;\n");
             sb.append("	}\n");
             sb.append("}\n");
@@ -145,9 +147,9 @@ public class Page {
             sb.append(" top.jzts();");
             sb.append("	if(true && document.forms[0]){\n");
             sb.append("		var url = document.forms[0].getAttribute(\"action\");\n");
-            sb.append("		if(url.indexOf('?')>-1){url += \"&"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
-            sb.append("		else{url += \"?"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
-            sb.append("		url = url + \"1&" +(entityOrField?"showCount":"page.showCount")+"=\"+value;\n");
+            sb.append("		if(url.indexOf('?')>-1){url += \"&" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";}\n");
+            sb.append("		else{url += \"?" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";}\n");
+            sb.append("		url = url + \"1&" + (entityOrField ? "showCount" : "page.showCount") + "=\"+value;\n");
             sb.append("		document.forms[0].action = url;\n");
             sb.append("		document.forms[0].submit();\n");
             sb.append("	}else{\n");
@@ -157,10 +159,10 @@ public class Page {
             sb.append("				var reg = /currentPage=\\d*/g;\n");
             sb.append("				url = url.replace(reg,'currentPage=');\n");
             sb.append("			}else{\n");
-            sb.append("				url += \"1&"+(entityOrField?"currentPage":"page.currentPage")+"=\";\n");
+            sb.append("				url += \"1&" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";\n");
             sb.append("			}\n");
-            sb.append("		}else{url += \"?"+(entityOrField?"currentPage":"page.currentPage")+"=\";}\n");
-            sb.append("		url = url + \"&" +(entityOrField?"showCount":"page.showCount")+"=\"+value;\n");
+            sb.append("		}else{url += \"?" + (entityOrField ? "currentPage" : "page.currentPage") + "=\";}\n");
+            sb.append("		url = url + \"&" + (entityOrField ? "showCount" : "page.showCount") + "=\"+value;\n");
             sb.append("		document.location = url;\n");
             sb.append("	}\n");
             sb.append("}\n");
@@ -192,8 +194,8 @@ public class Page {
     }
 
     public int getCurrentResult() {
-        currentResult = (getCurrentPage()-1)*getShowCount();
-        if(currentResult<0)
+        currentResult = (getCurrentPage() - 1) * getShowCount();
+        if (currentResult < 0)
             currentResult = 0;
         return currentResult;
     }
