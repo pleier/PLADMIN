@@ -32,7 +32,7 @@ import java.util.*;
 @RequestMapping(value="/user")
 public class UserController extends BaseController {
 
-	String menuUrl = "user/listUsers.do"; //²Ëµ¥µØÖ·(È¨ÏŞÓÃ)
+	String menuUrl = "user/listUsers.do"; //èœå•åœ°å€(æƒé™ç”¨)
 	@Resource(name="userService")
 	private UserManager userService;
 	@Resource(name="roleService")
@@ -40,7 +40,7 @@ public class UserController extends BaseController {
 	@Resource(name="menuService")
 	private MenuManager menuService;
 
-	/**ÏÔÊ¾ÓÃ»§ÁĞ±í
+	/**æ˜¾ç¤ºç”¨æˆ·åˆ—è¡¨
 	 * @param page
 	 * @return
 	 * @throws Exception
@@ -50,12 +50,12 @@ public class UserController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		String keywords = pd.getString("keywords");				//¹Ø¼ü´Ê¼ìË÷Ìõ¼ş
+		String keywords = pd.getString("keywords");				//å…³é”®è¯æ£€ç´¢æ¡ä»¶
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
-		String lastLoginStart = pd.getString("lastLoginStart");	//¿ªÊ¼Ê±¼ä
-		String lastLoginEnd = pd.getString("lastLoginEnd");		//½áÊøÊ±¼ä
+		String lastLoginStart = pd.getString("lastLoginStart");	//å¼€å§‹æ—¶é—´
+		String lastLoginEnd = pd.getString("lastLoginEnd");		//ç»“æŸæ—¶é—´
 		if(lastLoginStart != null && !"".equals(lastLoginStart)){
 			pd.put("lastLoginStart", lastLoginStart+" 00:00:00");
 		}
@@ -63,25 +63,25 @@ public class UserController extends BaseController {
 			pd.put("lastLoginEnd", lastLoginEnd+" 00:00:00");
 		}
 		page.setPageData(pd);
-		List<PageData>	userList = userService.listUsers(page);	//ÁĞ³öÓÃ»§ÁĞ±í
+		List<PageData>	userList = userService.listUsers(page);	//åˆ—å‡ºç”¨æˆ·åˆ—è¡¨
 		pd.put("ROLE_ID", "1");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
+		List<Role> roleList = roleService.listAllRolesByPId(pd);//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
 		mv.setViewName("system/user/user_list");
 		mv.addObject("userList", userList);
 		mv.addObject("roleList", roleList);
 		mv.addObject("pd", pd);
-		mv.addObject("QX", Jurisdiction.getHC());	//°´Å¥È¨ÏŞ
+		mv.addObject("QX", Jurisdiction.getHC());	//æŒ‰é’®æƒé™
 		return mv;
 	}
 
-	/**É¾³ıÓÃ»§
+	/**åˆ é™¤ç”¨æˆ·
 	 * @param out
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/deleteU")
 	public void deleteU(PrintWriter out) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //Ğ£ÑéÈ¨ÏŞ
-		logBefore(logger, Jurisdiction.getUsername()+"É¾³ıuser");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //æ ¡éªŒæƒé™
+		logBefore(logger, Jurisdiction.getUsername()+"åˆ é™¤user");
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		userService.deleteU(pd);
@@ -89,18 +89,18 @@ public class UserController extends BaseController {
 		out.close();
 	}
 
-	/**È¥ĞÂÔöÓÃ»§Ò³Ãæ
+	/**å»æ–°å¢ç”¨æˆ·é¡µé¢
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/goAddU")
 	public ModelAndView goAddU()throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //Ğ£ÑéÈ¨ÏŞ
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //æ ¡éªŒæƒé™
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("ROLE_ID", "1");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
+		List<Role> roleList = roleService.listAllRolesByPId(pd);//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
 		mv.setViewName("system/user/user_edit");
 		mv.addObject("msg", "saveU");
 		mv.addObject("pd", pd);
@@ -108,26 +108,26 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**±£´æÓÃ»§
+	/**ä¿å­˜ç”¨æˆ·
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/saveU")
 	public ModelAndView saveU() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //Ğ£ÑéÈ¨ÏŞ
-		logBefore(logger, Jurisdiction.getUsername()+"ĞÂÔöuser");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //æ ¡éªŒæƒé™
+		logBefore(logger, Jurisdiction.getUsername()+"æ–°å¢user");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("USER_ID", this.get32UUID());	//ID Ö÷¼ü
-		pd.put("LAST_LOGIN", "");				//×îºóµÇÂ¼Ê±¼ä
+		pd.put("USER_ID", this.get32UUID());	//ID ä¸»é”®
+		pd.put("LAST_LOGIN", "");				//æœ€åç™»å½•æ—¶é—´
 		pd.put("IP", "");						//IP
-		pd.put("STATUS", "0");					//×´Ì¬
+		pd.put("STATUS", "0");					//çŠ¶æ€
 		pd.put("SKIN", "default");
 		pd.put("RIGHTS", "");
-		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//ÃÜÂë¼ÓÃÜ
-		if(null == userService.findByUsername(pd)){	//ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ
-			userService.saveU(pd); 					//Ö´ĞĞ±£´æ
+		pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());	//å¯†ç åŠ å¯†
+		if(null == userService.findByUsername(pd)){	//åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
+			userService.saveU(pd); 					//æ‰§è¡Œä¿å­˜
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");
@@ -137,7 +137,7 @@ public class UserController extends BaseController {
 	}
 
 	/**
-	 * ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñ´æÔÚ
+	 * åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦å­˜åœ¨
 	 * @return
 	 */
 	@RequestMapping(value="/hasU")
@@ -154,11 +154,11 @@ public class UserController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//·µ»Ø½á¹û
+		map.put("result", errInfo);				//è¿”å›ç»“æœ
 		return AppUtil.returnObject(new PageData(), map);
 	}
 
-	/**ÅĞ¶ÏÓÊÏäÊÇ·ñ´æÔÚ
+	/**åˆ¤æ–­é‚®ç®±æ˜¯å¦å­˜åœ¨
 	 * @return
 	 */
 	@RequestMapping(value="/hasE")
@@ -175,12 +175,12 @@ public class UserController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//·µ»Ø½á¹û
+		map.put("result", errInfo);				//è¿”å›ç»“æœ
 		return AppUtil.returnObject(new PageData(), map);
 	}
 
 	/**
-	 * ÅĞ¶Ï±àÂëÊÇ·ñ´æÔÚ
+	 * åˆ¤æ–­ç¼–ç æ˜¯å¦å­˜åœ¨
 	 * @return
 	 */
 	@RequestMapping(value="/hasN")
@@ -197,24 +197,24 @@ public class UserController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//·µ»Ø½á¹û
+		map.put("result", errInfo);				//è¿”å›ç»“æœ
 		return AppUtil.returnObject(new PageData(), map);
 	}
 
-	/**È¥ĞŞ¸ÄÓÃ»§Ò³Ãæ(ÏµÍ³ÓÃ»§ÁĞ±íĞŞ¸Ä)
+	/**å»ä¿®æ”¹ç”¨æˆ·é¡µé¢(ç³»ç»Ÿç”¨æˆ·åˆ—è¡¨ä¿®æ”¹)
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/goEditU")
 	public ModelAndView goEditU() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //Ğ£ÑéÈ¨ÏŞ
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //æ ¡éªŒæƒé™
 		ModelAndView mv = this.getModelAndView();
 		PageData  pd = this.getPageData();
-		if("1".equals(pd.getString("USER_ID"))){return null;}		//²»ÄÜĞŞ¸ÄadminÓÃ»§
+		if("1".equals(pd.getString("USER_ID"))){return null;}		//ä¸èƒ½ä¿®æ”¹adminç”¨æˆ·
 		pd.put("ROLE_ID", "1");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);	//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
+		List<Role> roleList = roleService.listAllRolesByPId(pd);	//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
 		mv.addObject("fx", "user");
-		pd = userService.findById(pd);								//¸ù¾İID¶ÁÈ¡
+		pd = userService.findById(pd);								//æ ¹æ®IDè¯»å–
 		mv.setViewName("system/user/user_edit");
 		mv.addObject("msg", "editU");
 		mv.addObject("pd", pd);
@@ -222,7 +222,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**È¥ĞŞ¸ÄÓÃ»§Ò³Ãæ(¸öÈËĞŞ¸Ä)
+	/**å»ä¿®æ”¹ç”¨æˆ·é¡µé¢(ä¸ªäººä¿®æ”¹)
 	 * @return
 	 * @throws Exception
 	 */
@@ -232,9 +232,9 @@ public class UserController extends BaseController {
 		PageData pd = this.getPageData();
 		mv.addObject("fx", "head");
 		pd.put("ROLE_ID", "1");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);	//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
+		List<Role> roleList = roleService.listAllRolesByPId(pd);	//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
 		pd.put("USERNAME", Jurisdiction.getUsername());
-		pd = userService.findByUsername(pd);						//¸ù¾İÓÃ»§Ãû¶ÁÈ¡
+		pd = userService.findByUsername(pd);						//æ ¹æ®ç”¨æˆ·åè¯»å–
 		mv.setViewName("system/user/user_edit");
 		mv.addObject("msg", "editU");
 		mv.addObject("pd", pd);
@@ -242,20 +242,20 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**²é¿´ÓÃ»§
+	/**æŸ¥çœ‹ç”¨æˆ·
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/view")
 	public ModelAndView view() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //Ğ£ÑéÈ¨ÏŞ
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //æ ¡éªŒæƒé™
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if("admin".equals(pd.getString("USERNAME"))){return null;}	//²»ÄÜ²é¿´adminÓÃ»§
+		if("admin".equals(pd.getString("USERNAME"))){return null;}	//ä¸èƒ½æŸ¥çœ‹adminç”¨æˆ·
 		pd.put("ROLE_ID", "1");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);	//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
-		pd = userService.findByUsername(pd);						//¸ù¾İID¶ÁÈ¡
+		List<Role> roleList = roleService.listAllRolesByPId(pd);	//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
+		pd = userService.findByUsername(pd);						//æ ¹æ®IDè¯»å–
 		mv.setViewName("system/user/user_view");
 		mv.addObject("msg", "editU");
 		mv.addObject("pd", pd);
@@ -263,7 +263,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**È¥ĞŞ¸ÄÓÃ»§Ò³Ãæ(ÔÚÏß¹ÜÀíÒ³Ãæ´ò¿ª)
+	/**å»ä¿®æ”¹ç”¨æˆ·é¡µé¢(åœ¨çº¿ç®¡ç†é¡µé¢æ‰“å¼€)
 	 * @return
 	 * @throws Exception
 	 */
@@ -272,10 +272,10 @@ public class UserController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		if("admin".equals(pd.getString("USERNAME"))){return null;}	//²»ÄÜ²é¿´adminÓÃ»§
+		if("admin".equals(pd.getString("USERNAME"))){return null;}	//ä¸èƒ½æŸ¥çœ‹adminç”¨æˆ·
 		pd.put("ROLE_ID", "1");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);	//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
-		pd = userService.findByUsername(pd);						//¸ù¾İID¶ÁÈ¡
+		List<Role> roleList = roleService.listAllRolesByPId(pd);	//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
+		pd = userService.findByUsername(pd);						//æ ¹æ®IDè¯»å–
 		mv.setViewName("system/user/user_edit");
 		mv.addObject("msg", "editU");
 		mv.addObject("pd", pd);
@@ -284,38 +284,38 @@ public class UserController extends BaseController {
 	}
 
 	/**
-	 * ĞŞ¸ÄÓÃ»§
+	 * ä¿®æ”¹ç”¨æˆ·
 	 */
 	@RequestMapping(value="/editU")
 	public ModelAndView editU() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"ĞŞ¸Äser");
+		logBefore(logger, Jurisdiction.getUsername()+"ä¿®æ”¹ser");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd =  this.getPageData();
-		if(!Jurisdiction.getUsername().equals(pd.getString("USERNAME"))){		//Èç¹ûµ±Ç°µÇÂ¼ÓÃ»§ĞŞ¸ÄÓÃ»§×ÊÁÏÌá½»µÄÓÃ»§Ãû·Ç±¾ÈË
-			if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}  //Ğ£ÑéÈ¨ÏŞ ÅĞ¶Ïµ±Ç°²Ù×÷ÕßÓĞÎŞÓÃ»§¹ÜÀí²é¿´È¨ÏŞ
-			if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //Ğ£ÑéÈ¨ÏŞÅĞ¶Ïµ±Ç°²Ù×÷ÕßÓĞÎŞÓÃ»§¹ÜÀíĞŞ¸ÄÈ¨ÏŞ
-			if("admin".equals(pd.getString("USERNAME")) && !"admin".equals(Jurisdiction.getUsername())){return null;}	//·ÇadminÓÃ»§²»ÄÜĞŞ¸Äadmin
-		}else{	//Èç¹ûµ±Ç°µÇÂ¼ÓÃ»§ĞŞ¸ÄÓÃ»§×ÊÁÏÌá½»µÄÓÃ»§ÃûÊÇ±¾ÈË£¬Ôò²»ÄÜĞŞ¸Ä±¾ÈËµÄ½ÇÉ«ID
-			pd.put("ROLE_ID", userService.findByUsername(pd).getString("ROLE_ID")); //¶Ô½ÇÉ«ID»¹Ô­±¾ÈË½ÇÉ«ID
+		if(!Jurisdiction.getUsername().equals(pd.getString("USERNAME"))){		//å¦‚æœå½“å‰ç™»å½•ç”¨æˆ·ä¿®æ”¹ç”¨æˆ·èµ„æ–™æäº¤çš„ç”¨æˆ·åéæœ¬äºº
+			if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}  //æ ¡éªŒæƒé™ åˆ¤æ–­å½“å‰æ“ä½œè€…æœ‰æ— ç”¨æˆ·ç®¡ç†æŸ¥çœ‹æƒé™
+			if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //æ ¡éªŒæƒé™åˆ¤æ–­å½“å‰æ“ä½œè€…æœ‰æ— ç”¨æˆ·ç®¡ç†ä¿®æ”¹æƒé™
+			if("admin".equals(pd.getString("USERNAME")) && !"admin".equals(Jurisdiction.getUsername())){return null;}	//éadminç”¨æˆ·ä¸èƒ½ä¿®æ”¹admin
+		}else{	//å¦‚æœå½“å‰ç™»å½•ç”¨æˆ·ä¿®æ”¹ç”¨æˆ·èµ„æ–™æäº¤çš„ç”¨æˆ·åæ˜¯æœ¬äººï¼Œåˆ™ä¸èƒ½ä¿®æ”¹æœ¬äººçš„è§’è‰²ID
+			pd.put("ROLE_ID", userService.findByUsername(pd).getString("ROLE_ID")); //å¯¹è§’è‰²IDè¿˜åŸæœ¬äººè§’è‰²ID
 		}
 		if(pd.getString("PASSWORD") != null && !"".equals(pd.getString("PASSWORD"))){
 			pd.put("PASSWORD", new SimpleHash("SHA-1", pd.getString("USERNAME"), pd.getString("PASSWORD")).toString());
 		}
-		userService.editU(pd);	//Ö´ĞĞĞŞ¸Ä
+		userService.editU(pd);	//æ‰§è¡Œä¿®æ”¹
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
 	}
 
 	/**
-	 * ÅúÁ¿É¾³ı
+	 * æ‰¹é‡åˆ é™¤
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/deleteAllU")
 	@ResponseBody
 	public Object deleteAllU() throws Exception {
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //Ğ£ÑéÈ¨ÏŞ
-		logBefore(logger, Jurisdiction.getUsername()+"ÅúÁ¿É¾³ıuser");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //æ ¡éªŒæƒé™
+		logBefore(logger, Jurisdiction.getUsername()+"æ‰¹é‡åˆ é™¤user");
 		PageData pd = new PageData();
 		Map<String,Object> map = new HashMap<String,Object>();
 		pd = this.getPageData();
@@ -333,7 +333,7 @@ public class UserController extends BaseController {
 		return AppUtil.returnObject(pd, map);
 	}
 
-	/**µ¼³öÓÃ»§ĞÅÏ¢µ½EXCEL
+	/**å¯¼å‡ºç”¨æˆ·ä¿¡æ¯åˆ°EXCEL
 	 * @return
 	 */
 	@RequestMapping(value="/excel")
@@ -343,12 +343,12 @@ public class UserController extends BaseController {
 		pd = this.getPageData();
 		try{
 			if(Jurisdiction.buttonJurisdiction(menuUrl, "cha")){
-				String keywords = pd.getString("keywords");				//¹Ø¼ü´Ê¼ìË÷Ìõ¼ş
+				String keywords = pd.getString("keywords");				//å…³é”®è¯æ£€ç´¢æ¡ä»¶
 				if(null != keywords && !"".equals(keywords)){
 					pd.put("keywords", keywords.trim());
 				}
-				String lastLoginStart = pd.getString("lastLoginStart");	//¿ªÊ¼Ê±¼ä
-				String lastLoginEnd = pd.getString("lastLoginEnd");		//½áÊøÊ±¼ä
+				String lastLoginStart = pd.getString("lastLoginStart");	//å¼€å§‹æ—¶é—´
+				String lastLoginEnd = pd.getString("lastLoginEnd");		//ç»“æŸæ—¶é—´
 				if(lastLoginStart != null && !"".equals(lastLoginStart)){
 					pd.put("lastLoginStart", lastLoginStart+" 00:00:00");
 				}
@@ -357,14 +357,14 @@ public class UserController extends BaseController {
 				}
 				Map<String,Object> dataMap = new HashMap<String,Object>();
 				List<String> titles = new ArrayList<String>();
-				titles.add("ÓÃ»§Ãû"); 		//1
-				titles.add("±àºÅ");  		//2
-				titles.add("ĞÕÃû");			//3
-				titles.add("Ö°Î»");			//4
-				titles.add("ÊÖ»ú");			//5
-				titles.add("ÓÊÏä");			//6
-				titles.add("×î½üµÇÂ¼");		//7
-				titles.add("ÉÏ´ÎµÇÂ¼IP");	//8
+				titles.add("ç”¨æˆ·å"); 		//1
+				titles.add("ç¼–å·");  		//2
+				titles.add("å§“å");			//3
+				titles.add("èŒä½");			//4
+				titles.add("æ‰‹æœº");			//5
+				titles.add("é‚®ç®±");			//6
+				titles.add("æœ€è¿‘ç™»å½•");		//7
+				titles.add("ä¸Šæ¬¡ç™»å½•IP");	//8
 				dataMap.put("titles", titles);
 				List<PageData> userList = userService.listAllUser(pd);
 				List<PageData> varList = new ArrayList<PageData>();
@@ -381,7 +381,7 @@ public class UserController extends BaseController {
 					varList.add(vpd);
 				}
 				dataMap.put("varList", varList);
-				ObjectExcelView erv = new ObjectExcelView();					//Ö´ĞĞexcel²Ù×÷
+				ObjectExcelView erv = new ObjectExcelView();					//æ‰§è¡Œexcelæ“ä½œ
 				mv = new ModelAndView(erv,dataMap);
 			}
 		} catch(Exception e){
@@ -390,7 +390,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**´ò¿ªÉÏ´«EXCELÒ³Ãæ
+	/**æ‰“å¼€ä¸Šä¼ EXCELé¡µé¢
 	 * @return
 	 * @throws Exception
 	 */
@@ -401,7 +401,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 
-	/**ÏÂÔØÄ£°æ
+	/**ä¸‹è½½æ¨¡ç‰ˆ
 	 * @param response
 	 * @throws Exception
 	 */
@@ -410,7 +410,7 @@ public class UserController extends BaseController {
 		FileDownload.fileDownload(response, PathUtil.getClasspath() + Const.FILEPATHFILE + "Users.xls", "Users.xls");
 	}
 
-	/**´ÓEXCELµ¼Èëµ½Êı¾İ¿â
+	/**ä»EXCELå¯¼å…¥åˆ°æ•°æ®åº“
 	 * @param file
 	 * @return
 	 * @throws Exception
@@ -418,65 +418,65 @@ public class UserController extends BaseController {
 	@RequestMapping(value="/readExcel")
 	public ModelAndView readExcel(
 			@RequestParam(value="excel",required=false) MultipartFile file
-			) throws Exception{
+	) throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		if (null != file && !file.isEmpty()) {
-			String filePath = PathUtil.getClasspath() + Const.FILEPATHFILE;								//ÎÄ¼şÉÏ´«Â·¾¶
-			String fileName =  FileUpload.fileUp(file, filePath, "userexcel");							//Ö´ĞĞÉÏ´«
-			List<PageData> listPd = (List)ObjectExcelRead.readExcel(filePath, fileName, 2, 0, 0);		//Ö´ĞĞ¶ÁEXCEL²Ù×÷,¶Á³öµÄÊı¾İµ¼ÈëList 2:´ÓµÚ3ĞĞ¿ªÊ¼£»0:´ÓµÚAÁĞ¿ªÊ¼£»0:µÚ0¸ösheet
-			/*´æÈëÊı¾İ¿â²Ù×÷======================================*/
-			pd.put("RIGHTS", "");					//È¨ÏŞ
-			pd.put("LAST_LOGIN", "");				//×îºóµÇÂ¼Ê±¼ä
+			String filePath = PathUtil.getClasspath() + Const.FILEPATHFILE;								//æ–‡ä»¶ä¸Šä¼ è·¯å¾„
+			String fileName =  FileUpload.fileUp(file, filePath, "userexcel");							//æ‰§è¡Œä¸Šä¼ 
+			List<PageData> listPd = (List)ObjectExcelRead.readExcel(filePath, fileName, 2, 0, 0);		//æ‰§è¡Œè¯»EXCELæ“ä½œ,è¯»å‡ºçš„æ•°æ®å¯¼å…¥List 2:ä»ç¬¬3è¡Œå¼€å§‹ï¼›0:ä»ç¬¬Aåˆ—å¼€å§‹ï¼›0:ç¬¬0ä¸ªsheet
+			/*å­˜å…¥æ•°æ®åº“æ“ä½œ======================================*/
+			pd.put("RIGHTS", "");					//æƒé™
+			pd.put("LAST_LOGIN", "");				//æœ€åç™»å½•æ—¶é—´
 			pd.put("IP", "");						//IP
-			pd.put("STATUS", "0");					//×´Ì¬
-			pd.put("SKIN", "default");				//Ä¬ÈÏÆ¤·ô
+			pd.put("STATUS", "0");					//çŠ¶æ€
+			pd.put("SKIN", "default");				//é»˜è®¤çš®è‚¤
 			pd.put("ROLE_ID", "1");
-			List<Role> roleList = roleService.listAllRolesByPId(pd);//ÁĞ³öËùÓĞÏµÍ³ÓÃ»§½ÇÉ«
-			pd.put("ROLE_ID", roleList.get(0).getROLE_ID());		//ÉèÖÃ½ÇÉ«IDÎªËæ±ãµÚÒ»¸ö
+			List<Role> roleList = roleService.listAllRolesByPId(pd);//åˆ—å‡ºæ‰€æœ‰ç³»ç»Ÿç”¨æˆ·è§’è‰²
+			pd.put("ROLE_ID", roleList.get(0).getROLE_ID());		//è®¾ç½®è§’è‰²IDä¸ºéšä¾¿ç¬¬ä¸€ä¸ª
 			/**
-			 * var0 :±àºÅ
-			 * var1 :ĞÕÃû
-			 * var2 :ÊÖ»ú
-			 * var3 :ÓÊÏä
-			 * var4 :±¸×¢
+			 * var0 :ç¼–å·
+			 * var1 :å§“å
+			 * var2 :æ‰‹æœº
+			 * var3 :é‚®ç®±
+			 * var4 :å¤‡æ³¨
 			 */
 			for(int i=0;i<listPd.size();i++){
 				pd.put("USER_ID", this.get32UUID());										//ID
-				pd.put("NAME", listPd.get(i).getString("var1"));							//ĞÕÃû
+				pd.put("NAME", listPd.get(i).getString("var1"));							//å§“å
 
-				String USERNAME = GetPinyin.getPingYin(listPd.get(i).getString("var1"));	//¸ù¾İĞÕÃûºº×ÖÉú³ÉÈ«Æ´
+				String USERNAME = GetPinyin.getPingYin(listPd.get(i).getString("var1"));	//æ ¹æ®å§“åæ±‰å­—ç”Ÿæˆå…¨æ‹¼
 				pd.put("USERNAME", USERNAME);
-				if(userService.findByUsername(pd) != null){									//ÅĞ¶ÏÓÃ»§ÃûÊÇ·ñÖØ¸´
+				if(userService.findByUsername(pd) != null){									//åˆ¤æ–­ç”¨æˆ·åæ˜¯å¦é‡å¤
 					USERNAME = GetPinyin.getPingYin(listPd.get(i).getString("var1"))+Tools.getRandomNum();
 					pd.put("USERNAME", USERNAME);
 				}
-				pd.put("BZ", listPd.get(i).getString("var4"));								//±¸×¢
-				if(Tools.checkEmail(listPd.get(i).getString("var3"))){						//ÓÊÏä¸ñÊ½²»¶Ô¾ÍÌø¹ı
+				pd.put("BZ", listPd.get(i).getString("var4"));								//å¤‡æ³¨
+				if(Tools.checkEmail(listPd.get(i).getString("var3"))){						//é‚®ç®±æ ¼å¼ä¸å¯¹å°±è·³è¿‡
 					pd.put("EMAIL", listPd.get(i).getString("var3"));
-					if(userService.findByUE(pd) != null){									//ÓÊÏäÒÑ´æÔÚ¾ÍÌø¹ı
+					if(userService.findByUE(pd) != null){									//é‚®ç®±å·²å­˜åœ¨å°±è·³è¿‡
 						continue;
 					}
 				}else{
 					continue;
 				}
-				pd.put("NUMBER", listPd.get(i).getString("var0"));							//±àºÅÒÑ´æÔÚ¾ÍÌø¹ı
-				pd.put("PHONE", listPd.get(i).getString("var2"));							//ÊÖ»úºÅ
+				pd.put("NUMBER", listPd.get(i).getString("var0"));							//ç¼–å·å·²å­˜åœ¨å°±è·³è¿‡
+				pd.put("PHONE", listPd.get(i).getString("var2"));							//æ‰‹æœºå·
 
-				pd.put("PASSWORD", new SimpleHash("SHA-1", USERNAME, "123").toString());	//Ä¬ÈÏÃÜÂë123
+				pd.put("PASSWORD", new SimpleHash("SHA-1", USERNAME, "123").toString());	//é»˜è®¤å¯†ç 123
 				if(userService.findByUN(pd) != null){
 					continue;
 				}
 				userService.saveU(pd);
 			}
-			/*´æÈëÊı¾İ¿â²Ù×÷======================================*/
+			/*å­˜å…¥æ•°æ®åº“æ“ä½œ======================================*/
 			mv.addObject("msg","success");
 		}
 		mv.setViewName("save_result");
 		return mv;
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
