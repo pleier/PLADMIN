@@ -87,7 +87,7 @@ public class PlsmsManagerImpl implements PlsmsManager {
      */
     @Override
     public PageData findPlsmsCount(String USERNAME) throws Exception {
-        return (PageData)dao.findForObject("PlsmsMapper.findFhsmsCount", USERNAME);
+        return (PageData)dao.findForObject("PlsmsMapper.findPLsmsCount", USERNAME);
     }
 
     /**
