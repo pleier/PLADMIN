@@ -9,137 +9,137 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 
-/** 
- * ËµÃ÷£ºÍ¼Æ¬Ë®Ó¡´¦ÀíÀà £¨±¨´í×¢Òâ£ºÓÃ°²×°°æµÄjdk£¬²»ÒªÓÃ¿ª·¢¹¤¾ß×Ô´øµÄjdk£©
- * ´´½¨ÈË£ºplei
- * ĞŞ¸ÄÊ±¼ä£º2017Äê8ÔÂ4ÈÕ
+/**
+ * è¯´æ˜ï¼šå›¾ç‰‡æ°´å°å¤„ç†ç±» ï¼ˆæŠ¥é”™æ³¨æ„ï¼šç”¨å®‰è£…ç‰ˆçš„jdkï¼Œä¸è¦ç”¨å¼€å‘å·¥å…·è‡ªå¸¦çš„jdkï¼‰
+ * åˆ›å»ºäººï¼šplei
+ * ä¿®æ”¹æ—¶é—´ï¼š2017å¹´8æœˆ4æ—¥
  * @version
  */
 public class Watermark {
 
-		private	static String strFWATERM,strIWATERM;
+	private	static String strFWATERM,strIWATERM;
 
-		static{
-			strFWATERM = Tools.readTxtFile(Const.FWATERM);	//¶ÁÈ¡ÎÄ×ÖË®Ó¡ÅäÖÃ
-			strIWATERM = Tools.readTxtFile(Const.IWATERM);	//¶ÁÈ¡Í¼Æ¬Ë®Ó¡ÅäÖÃ
-		}
+	static{
+		strFWATERM = Tools.readTxtFile(Const.FWATERM);	//è¯»å–æ–‡å­—æ°´å°é…ç½®
+		strIWATERM = Tools.readTxtFile(Const.IWATERM);	//è¯»å–å›¾ç‰‡æ°´å°é…ç½®
+	}
 
-		/**
-		 * Ë¢ĞÂ
-		*/
-		public static void fushValue(){
-			strFWATERM = Tools.readTxtFile(Const.FWATERM);	//¶ÁÈ¡ÎÄ×ÖË®Ó¡ÅäÖÃ
-			strIWATERM = Tools.readTxtFile(Const.IWATERM);	//¶ÁÈ¡Í¼Æ¬Ë®Ó¡ÅäÖÃ
-		}
+	/**
+	 * åˆ·æ–°
+	 */
+	public static void fushValue(){
+		strFWATERM = Tools.readTxtFile(Const.FWATERM);	//è¯»å–æ–‡å­—æ°´å°é…ç½®
+		strIWATERM = Tools.readTxtFile(Const.IWATERM);	//è¯»å–å›¾ç‰‡æ°´å°é…ç½®
+	}
 
-		/**
-		 * @param imagePath Í¼Æ¬È«Â·¾¶
-		*/
-	  	public static void setWatemark(String imagePath){
-	  		//ÎÄ×ÖË®Ó¡
-	  		if(null != strFWATERM && !"".equals(strFWATERM)){
-				String strFW[] = strFWATERM.split(",fh,");
-				if(strFW.length == 5){
-					if("yes".equals(strFW[0])){
-						pressText(strFW[1].toString(), imagePath, "", 1, Color.RED,Integer.parseInt(strFW[2]), Integer.parseInt(strFW[3]), Integer.parseInt(strFW[4]));	//ÎÄ×Ö
-					}
+	/**
+	 * @param imagePath å›¾ç‰‡å…¨è·¯å¾„
+	 */
+	public static void setWatemark(String imagePath){
+		//æ–‡å­—æ°´å°
+		if(null != strFWATERM && !"".equals(strFWATERM)){
+			String strFW[] = strFWATERM.split(",fh,");
+			if(strFW.length == 5){
+				if("yes".equals(strFW[0])){
+					pressText(strFW[1].toString(), imagePath, "", 1, Color.RED,Integer.parseInt(strFW[2]), Integer.parseInt(strFW[3]), Integer.parseInt(strFW[4]));	//æ–‡å­—
 				}
 			}
-	  		//Í¼Æ¬Ë®Ó¡
-			if(null != strIWATERM && !"".equals(strIWATERM)){
-				String strIW[] = strIWATERM.split(",pl,");
-				if(strIW.length == 4){
-					if("yes".equals(strIW[0])){
-						pressImage(PathUtil.getClasspath() + Const.FILEPATHIMG+strIW[1], imagePath, Integer.parseInt(strIW[2]), Integer.parseInt(strIW[3]));
-					}
+		}
+		//å›¾ç‰‡æ°´å°
+		if(null != strIWATERM && !"".equals(strIWATERM)){
+			String strIW[] = strIWATERM.split(",pl,");
+			if(strIW.length == 4){
+				if("yes".equals(strIW[0])){
+					pressImage(PathUtil.getClasspath() + Const.FILEPATHIMG+strIW[1], imagePath, Integer.parseInt(strIW[2]), Integer.parseInt(strIW[3]));
 				}
 			}
-		  }
+		}
+	}
 
-	    /**
-	     * °ÑÍ¼Æ¬Ó¡Ë¢µ½Í¼Æ¬ÉÏ
-	     *
-	     * @param pressImg --
-	     *            Ë®Ó¡ÎÄ¼ş
-	     * @param targetImg --
-	     *            Ä¿±êÎÄ¼ş
-	     * @param x
-	     *            --x×ø±ê
-	     * @param y
-	     *            --y×ø±ê
-	     */
-	    public final static void pressImage(String pressImg, String targetImg,
-	            int x, int y) {
-	        try {
-	            //Ä¿±êÎÄ¼ş
-	            File _file = new File(targetImg);
-	            Image src = ImageIO.read(_file);
-	            int wideth = src.getWidth(null);
-	            int height = src.getHeight(null);
-	            BufferedImage image = new BufferedImage(wideth, height,
-	                    BufferedImage.TYPE_INT_RGB);
-	            Graphics g = image.createGraphics();
-	            g.drawImage(src, 0, 0, wideth, height, null);
+	/**
+	 * æŠŠå›¾ç‰‡å°åˆ·åˆ°å›¾ç‰‡ä¸Š
+	 *
+	 * @param pressImg --
+	 *            æ°´å°æ–‡ä»¶
+	 * @param targetImg --
+	 *            ç›®æ ‡æ–‡ä»¶
+	 * @param x
+	 *            --xåæ ‡
+	 * @param y
+	 *            --yåæ ‡
+	 */
+	public final static void pressImage(String pressImg, String targetImg,
+										int x, int y) {
+		try {
+			//ç›®æ ‡æ–‡ä»¶
+			File _file = new File(targetImg);
+			Image src = ImageIO.read(_file);
+			int wideth = src.getWidth(null);
+			int height = src.getHeight(null);
+			BufferedImage image = new BufferedImage(wideth, height,
+					BufferedImage.TYPE_INT_RGB);
+			Graphics g = image.createGraphics();
+			g.drawImage(src, 0, 0, wideth, height, null);
 
-	            //Ë®Ó¡ÎÄ¼ş
-	            File _filebiao = new File(pressImg);
-	            Image src_biao = ImageIO.read(_filebiao);
-	            int wideth_biao = src_biao.getWidth(null);
-	            int height_biao = src_biao.getHeight(null);
-	            //g.drawImage(src_biao, (wideth - wideth_biao) / 2,(height - height_biao) / 2, wideth_biao, height_biao, null);
-	            g.drawImage(src_biao, x, y, wideth_biao, height_biao, null);
-	            //Ë®Ó¡ÎÄ¼ş½áÊø
-	            g.dispose();
-	            FileOutputStream out = new FileOutputStream(targetImg);
-	            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-	            encoder.encode(image);
-	            out.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
+			//æ°´å°æ–‡ä»¶
+			File _filebiao = new File(pressImg);
+			Image src_biao = ImageIO.read(_filebiao);
+			int wideth_biao = src_biao.getWidth(null);
+			int height_biao = src_biao.getHeight(null);
+			//g.drawImage(src_biao, (wideth - wideth_biao) / 2,(height - height_biao) / 2, wideth_biao, height_biao, null);
+			g.drawImage(src_biao, x, y, wideth_biao, height_biao, null);
+			//æ°´å°æ–‡ä»¶ç»“æŸ
+			g.dispose();
+			FileOutputStream out = new FileOutputStream(targetImg);
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+			encoder.encode(image);
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-	    /**
-	     * ´òÓ¡ÎÄ×ÖË®Ó¡Í¼Æ¬
-	     *
-	     * @param pressText
-	     *            --ÎÄ×Ö
-	     * @param targetImg --
-	     *            Ä¿±êÍ¼Æ¬
-	     * @param fontName --
-	     *            ×ÖÌåÃû
-	     * @param fontStyle --
-	     *            ×ÖÌåÑùÊ½
-	     * @param color --
-	     *            ×ÖÌåÑÕÉ«
-	     * @param fontSize --
-	     *            ×ÖÌå´óĞ¡
-	     * @param x --
-	     *            Æ«ÒÆÁ¿
-	     * @param y
-	     */
+	/**
+	 * æ‰“å°æ–‡å­—æ°´å°å›¾ç‰‡
+	 *
+	 * @param pressText
+	 *            --æ–‡å­—
+	 * @param targetImg --
+	 *            ç›®æ ‡å›¾ç‰‡
+	 * @param fontName --
+	 *            å­—ä½“å
+	 * @param fontStyle --
+	 *            å­—ä½“æ ·å¼
+	 * @param color --
+	 *            å­—ä½“é¢œè‰²
+	 * @param fontSize --
+	 *            å­—ä½“å¤§å°
+	 * @param x --
+	 *            åç§»é‡
+	 * @param y
+	 */
 
-	    public static void pressText(String pressText, String targetImg,
-	    		String fontName, int fontStyle, Color color, int fontSize, int x,int y) {
-	        try {
-	            File _file = new File(targetImg);
-	            Image src = ImageIO.read(_file);
-	            int wideth = src.getWidth(null);
-	            int height = src.getHeight(null);
-	            BufferedImage image = new BufferedImage(wideth, height,
-	                    BufferedImage.TYPE_INT_RGB);
-	            Graphics g = image.createGraphics();
-	            g.drawImage(src, 0, 0, wideth, height, null);
-	            g.setColor(color);
-	            g.setFont(new Font(fontName, fontStyle, fontSize));
-	            g.drawString(pressText, x, y);
-	            g.dispose();
-	            FileOutputStream out = new FileOutputStream(targetImg);
-	            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-	            encoder.encode(image);
-	            out.close();
-	        } catch (Exception e) {
-	            System.out.println(e);
-	        }
-	    }  
+	public static void pressText(String pressText, String targetImg,
+								 String fontName, int fontStyle, Color color, int fontSize, int x,int y) {
+		try {
+			File _file = new File(targetImg);
+			Image src = ImageIO.read(_file);
+			int wideth = src.getWidth(null);
+			int height = src.getHeight(null);
+			BufferedImage image = new BufferedImage(wideth, height,
+					BufferedImage.TYPE_INT_RGB);
+			Graphics g = image.createGraphics();
+			g.drawImage(src, 0, 0, wideth, height, null);
+			g.setColor(color);
+			g.setFont(new Font(fontName, fontStyle, fontSize));
+			g.drawString(pressText, x, y);
+			g.dispose();
+			FileOutputStream out = new FileOutputStream(targetImg);
+			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+			encoder.encode(image);
+			out.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
